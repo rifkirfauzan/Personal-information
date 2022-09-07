@@ -1,24 +1,24 @@
 import React, { useContext } from 'react';
-import BookForm from './BookForm';
+import PersonalForm from './PersonalForm';
 import { useParams } from 'react-router-dom';
-import BooksContext from '../context/BooksContext';
+import PersonalsContext from '../context/PersonalsContext';
 
-const EditBook = ({ history }) => {
-  const { books, setBooks } = useContext(BooksContext);
+const EditPersonal = ({ history }) => {
+  const { personals, setPersonals } = useContext(PersonalsContext);
   const { id } = useParams();
-  const bookToEdit = books.find((book) => book.id === id);
+  const personalToEdit = personals.find((personal) => personal.id === id);
 
-  const handleOnSubmit = (book) => {
-    const filteredBooks = books.filter((book) => book.id !== id);
-    setBooks([book, ...filteredBooks]);
+  const handleOnSubmit = (personal) => {
+    const filteredPersonal = personals.filter((personal) => personal.id !== id);
+    setPersonals([personal, ...filteredPersonals]);
     history.push('/');
   };
 
   return (
     <div>
-      <BookForm book={bookToEdit} handleOnSubmit={handleOnSubmit} />
+      <PersonalForm personal={personalToEdit} handleOnSubmit={handleOnSubmit} />
     </div>
   );
 };
 
-export default EditBook;
+export default EditPersonal;

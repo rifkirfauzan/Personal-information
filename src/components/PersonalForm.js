@@ -3,22 +3,22 @@ import { Form, Button } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 
 const BookForm = (props) => {
-  const [book, setBook] = useState(() => {
+  const [personal, setBook] = useState(() => {
     return {
-      bookname: props.book ? props.book.bookname : '',
-      author: props.book ? props.book.author : '',
-      quantity: props.book ? props.book.quantity : '',
-      price: props.book ? props.book.price : '',
-      date: props.book ? props.book.date : ''
+      name: props.personal ? props.personal.name : '',
+      dob: props.personal ? props.personal.dob : '',
+      address: props.personal ? props.personal.address : '',
+      phone: props.personal ? props.personal.phone : '',
+      phone: props.personal ? props.personal.phone : ''
     };
   });
 
   const [errorMsg, setErrorMsg] = useState('');
-  const { bookname, author, price, quantity } = book;
+  const { name, dob, address, phone,password,   } = personal;
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    const values = [bookname, author, price, quantity];
+    const values = [name, dob, address, phone, phone];
     let errorMsg = '';
 
     const allFieldsFilled = values.every((field) => {
@@ -27,15 +27,16 @@ const BookForm = (props) => {
     });
 
     if (allFieldsFilled) {
-      const book = {
+      const personal = {
         id: uuidv4(),
-        bookname,
-        author,
-        price,
-        quantity,
+        name,
+        dob,
+        address,
+        phone,
+        password,
         date: new Date()
       };
-      props.handleOnSubmit(book);
+      props.handleOnSubmit(personal);
     } else {
       errorMsg = 'Please fill out all the fields.';
     }
@@ -47,14 +48,6 @@ const BookForm = (props) => {
     switch (name) {
       case 'quantity':
         if (value === '' || parseInt(value) === +value) {
-          setBook((prevState) => ({
-            ...prevState,
-            [name]: value
-          }));
-        }
-        break;
-      case 'price':
-        if (value === '' || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
           setBook((prevState) => ({
             ...prevState,
             [name]: value
@@ -74,46 +67,68 @@ const BookForm = (props) => {
       {errorMsg && <p className="errorMsg">{errorMsg}</p>}
       <Form onSubmit={handleOnSubmit}>
         <Form.Group controlId="name">
-          <Form.Label>Book Name</Form.Label>
+          <Form.Label>Name</Form.Label>
           <Form.Control
             className="input-control"
             type="text"
-            name="bookname"
-            value={bookname}
-            placeholder="Enter name of book"
+            name="name"
+            value={name}
+            placeholder="Enter name"
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group controlId="author">
-          <Form.Label>Book Author</Form.Label>
+        <Form.Group controlId="email">
+          <Form.Label>email</Form.Label>
           <Form.Control
             className="input-control"
             type="text"
-            name="author"
-            value={author}
-            placeholder="Enter name of author"
+            name="email"
+            value={email}
+            placeholder="Enter email"
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group controlId="quantity">
-          <Form.Label>Quantity</Form.Label>
+        <Form.Group controlId="address">
+          <Form.Label>address</Form.Label>
+          <Form.Control
+            className="input-control"
+            type="text"
+            name="address"
+            value={address}
+            placeholder="Enter address"
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="dob">
+          <Form.Label>Date FO Birth</Form.Label>
           <Form.Control
             className="input-control"
             type="number"
-            name="quantity"
-            value={quantity}
-            placeholder="Enter available quantity"
+            name="dob"
+            value={dob}
+            placeholder="Enter dob quantity"
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Form.Group controlId="price">
-          <Form.Label>Book Price</Form.Label>
+        <Form.Group controlId="phone">
+          <Form.Label>Phone Number</Form.Label>
           <Form.Control
             className="input-control"
             type="text"
-            name="price"
-            value={price}
-            placeholder="Enter price of book"
+            name="phone"
+            value={phone}
+            placeholder="Enter phone"
+            onChange={handleInputChange}
+          />
+        </Form.Group>
+        <Form.Group controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            className="input-control"
+            type="password"
+            name="password"
+            value={password}
+            placeholder="Enter password"
             onChange={handleInputChange}
           />
         </Form.Group>
